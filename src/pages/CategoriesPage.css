@@ -1,3 +1,146 @@
 .categories-page {
   padding: 12px;
+  padding-bottom: 80px;
+}
+
+.category-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.delete-hint {
+  font-size: 12px;
+  color: #999;
+}
+
+.add-btn {
+  position: fixed !important;
+  bottom: 70px !important;
+  right: 20px !important;
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  background: #1677ff !important;
+  color: #fff !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.add-btn .adm-icon {
+  font-size: 28px;
+}
+
+.category-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.name-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.name-input-wrapper .adm-input-wrapper {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.color-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.color-picker {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.color-item {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid transparent;
+}
+
+.color-item:active {
+  transform: scale(0.95);
+}
+
+.color-item.active {
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.check-mark {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.dialog-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dialog-btn {
+  flex: 1;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.dialog-btn:active {
+  opacity: 0.8;
+}
+
+.dialog-btn.cancel {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.dialog-btn.confirm {
+  background: #1677ff;
+  color: #fff;
+}
+
+.dialog-btn.delete {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  background: #ff4d4f;
+  color: #fff;
+  margin-top: 8px;
+}
+
+.dialog-btn.delete:active {
+  opacity: 0.8;
 }

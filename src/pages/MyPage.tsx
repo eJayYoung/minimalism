@@ -1,8 +1,10 @@
 import { List } from 'antd-mobile'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './MyPage.css'
 
 export default function MyPage() {
+  const navigate = useNavigate()
+
   return (
     <div className="my-page">
       <div className="profile-section">
@@ -12,8 +14,8 @@ export default function MyPage() {
       </div>
 
       <List header="分类">
-        <List.Item arrow>
-          <Link to="/categories">分类管理</Link>
+        <List.Item arrow onClick={() => navigate('/categories')}>
+          分类管理
         </List.Item>
       </List>
 

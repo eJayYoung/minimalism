@@ -17,6 +17,12 @@ interface Item {
   image?: string
 }
 
+export interface Category {
+  id: number
+  name: string
+  color: string
+}
+
 function TabBarWrapper() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -35,6 +41,8 @@ function TabBarWrapper() {
   )
 }
 
+const presetColors = ['#1677ff', '#87d068', '#2db7f5', '#f5317f', '#ff6600', '#722ed1']
+
 function AppContent() {
   const [items, setItems] = useState<Item[]>([
     { id: 1, name: '白色T恤', location: '衣柜', category: '上衣' },
@@ -43,6 +51,12 @@ function AppContent() {
     { id: 4, name: '外套', location: '衣柜', category: '外套' },
     { id: 5, name: '衬衫', location: '衣柜', category: '上衣' },
     { id: 6, name: '休闲裤', location: '衣柜', category: '下装' },
+  ])
+  const [categories, setCategories] = useState<Category[]>([
+    { id: 1, name: '上衣', color: '#1677ff' },
+    { id: 2, name: '下装', color: '#87d068' },
+    { id: 3, name: '鞋子', color: '#2db7f5' },
+    { id: 4, name: '外套', color: '#f5317f' },
   ])
   const [addVisible, setAddVisible] = useState(false)
 
@@ -73,7 +87,7 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage items={items} onDelete={handleDelete} onAdd={handleAdd} />} />
           <Route path="/my" element={<MyPage />} />
-          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/categories" element={<CategoriesPage categories={categories} setCategories={setCategories} presetColors={presetColors} items={items} />} />
         </Routes>
       </div>
 

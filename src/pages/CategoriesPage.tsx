@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { List, Badge, Dialog, Input, Button, Space } from 'antd-mobile'
+import { useState, useMemo } from 'react'
+import { List, Badge, Dialog, Input, Button, Space, SearchBar } from 'antd-mobile'
 import { AddOutline } from 'antd-mobile-icons'
 import { useNavigate } from 'react-router-dom'
 import type { Category } from '../App'
@@ -19,6 +19,7 @@ export default function CategoriesPage({ categories, setCategories, presetColors
   const [editingCategory, setEditingCategory] = useState<Category | null>(null)
   const [categoryName, setCategoryName] = useState('')
   const [selectedColor, setSelectedColor] = useState(presetColors[0])
+  const [searchValue, setSearchValue] = useState('')
 
   const getCategoryCount = (categoryName: string) => {
     if (categoryName === '全部') {
@@ -88,8 +89,23 @@ export default function CategoriesPage({ categories, setCategories, presetColors
     ...categories,
   ]
 
+  const filteredCategories = useMemo(() => {
+    if (!searchValue.trim()) {
+      return allCategories
+    }
+    return allCategories.filter(cat =>
+      cat.name.toLowerCase().includes(searchValue.toLowerCase())
+    )
+  }, [allCategories, searchValue])
+
   return (
     <div className="categories-page">
+      <SearchBar
+        placeholder="搜索分类"
+        value={searchValue}
+        onChange={setSearchValue}
+        style={{ '--background': '#f5f5f5', margin: '8px 12px' }}
+      />
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', backgroundColor: '#f5f5f5' }}>
         <span style={{ fontSize: 14, color: '#666' }}>我的分类</span>
         <Button size="small" color="primary" onClick={handleAdd}>
@@ -97,7 +113,7 @@ export default function CategoriesPage({ categories, setCategories, presetColors
         </Button>
       </div>
       <List>
-        {allCategories.map((cat) => (
+        {filteredCategories.map((cat) => (
           <List.Item
             key={cat.id}
             prefix={<Badge color={cat.color}>{cat.name}</Badge>}

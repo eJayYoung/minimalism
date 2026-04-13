@@ -17,6 +17,12 @@ interface Item {
   image?: string
 }
 
+interface Category {
+  id: number
+  name: string
+  color: string
+}
+
 function TabBarWrapper() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -44,6 +50,12 @@ function AppContent() {
     { id: 5, name: '衬衫', location: '衣柜', category: '上衣' },
     { id: 6, name: '休闲裤', location: '衣柜', category: '下装' },
   ])
+  const [categories, setCategories] = useState<Category[]>([
+    { id: 1, name: '数码', color: '#87d068' },
+    { id: 2, name: '衣物', color: '#2db7f5' },
+    { id: 3, name: '书籍', color: '#f5317f' },
+    { id: 4, name: '文件', color: '#ff6600' },
+  ])
   const [addVisible, setAddVisible] = useState(false)
 
   const handleDelete = (id: number) => {
@@ -67,13 +79,38 @@ function AppContent() {
     setAddVisible(false)
   }
 
+  const handleAddCategory = (category: Omit<Category, 'id'>) => {
+    setCategories([...categories, {
+      ...category,
+      id: Date.now(),
+    }])
+  }
+
+  const handleUpdateCategory = (id: number, category: Omit<Category, 'id'>) => {
+    setCategories(categories.map(cat =>
+      cat.id === id ? { ...category, id } : cat
+    ))
+  }
+
+  const handleDeleteCategory = (id: number) => {
+    setCategories(categories.filter(cat => cat.id !== id))
+  }
+
   return (
     <div className="app">
       <div className="page-content">
         <Routes>
           <Route path="/" element={<HomePage items={items} onDelete={handleDelete} onAdd={handleAdd} />} />
           <Route path="/my" element={<MyPage />} />
-          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/categories" element={
+            <CategoriesPage
+              categories={categories}
+              items={items}
+              onAdd={handleAddCategory}
+              onUpdate={handleUpdateCategory}
+              onDelete={handleDeleteCategory}
+            />
+          } />
         </Routes>
       </div>
 

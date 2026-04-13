@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { List, Badge, Dialog, Input, SearchBar } from 'antd-mobile'
 import { AddOutline } from 'antd-mobile-icons'
 import { Category } from '../App'
@@ -38,8 +38,20 @@ interface CategoryDialogProps {
 }
 
 function CategoryDialog({ visible, mode, category, onClose, onConfirm }: CategoryDialogProps) {
-  const [name, setName] = useState(category?.name || '')
-  const [color, setColor] = useState(category?.color || PRESET_COLORS[0])
+  const [name, setName] = useState('')
+  const [color, setColor] = useState(PRESET_COLORS[0])
+
+  useEffect(() => {
+    if (visible) {
+      if (mode === 'edit' && category) {
+        setName(category.name)
+        setColor(category.color)
+      } else {
+        setName('')
+        setColor(PRESET_COLORS[0])
+      }
+    }
+  }, [visible, mode, category])
 
   const handleConfirm = () => {
     const trimmedName = name.trim()
@@ -52,8 +64,6 @@ function CategoryDialog({ visible, mode, category, onClose, onConfirm }: Categor
   }
 
   const handleClose = () => {
-    setName('')
-    setColor(PRESET_COLORS[0])
     onClose()
   }
 
